@@ -3,7 +3,7 @@
     import SvgHelp from "../icons/SvgHelp.svelte";
     import SvgLeftArrow from "../icons/SvgLeftArrow.svelte";
     import SvgRightArrow from "../icons/SvgRightArrow.svelte";
-    import { tabStore } from "../stores/TabStore";
+    import { tabStore } from "../../lib/stores/TabStore";
     import HelpInstructions from "./HelpInstructions.svelte";
     import ProgressPills from "./ProgressPills.svelte";
 

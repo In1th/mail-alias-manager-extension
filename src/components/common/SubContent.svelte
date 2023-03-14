@@ -1,6 +1,6 @@
 <script>
-    import SvgLeftArrow from "./icons/SvgLeftArrow.svelte";
-    import { tabStore } from "./stores/TabStore";
+    import SvgLeftArrow from "../icons/SvgLeftArrow.svelte";
+    import { tabStore } from "../../lib/stores/TabStore";
 
     export let title;
 

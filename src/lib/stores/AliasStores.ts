@@ -4,6 +4,7 @@ import type { Alias } from "../model/Alias";
 
 export class AliasStore {
     aliases: Promise<Alias[]>;
+    search: string = '';
 
     async getAliases(api: Api) {
         return api.getAliases();

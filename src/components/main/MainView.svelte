@@ -9,6 +9,7 @@
     import { aliasStore } from "../../lib/stores/AliasStores";
     import { tabStore } from "../../lib/stores/TabStore";
     import { FakeApi } from "../../lib/api/FakeApi";
+    import Search from "../common/Search.svelte";
 
     onMount(() => {
         const api = new FakeApi();
@@ -24,7 +25,7 @@
         <SvgMail color="white"/>
         <h1>Mail Aliaser</h1>
     </nav>
-    <input type="text" placeholder="search"/>
+    <Search searchText={$aliasStore.search}/>
     <div id="sections">
         <MainSection
             icon={SvgAdd}
@@ -90,9 +91,6 @@
     }
     footer button:hover{
         background-color: var(--primary-color-100);
-    }
-    input {
-        font-size: 1rem;
     }
     h1 {
         color: white;

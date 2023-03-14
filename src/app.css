@@ -55,6 +55,25 @@
     --info-color-900: #002857;
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: unset; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.4); 
+    border-radius: 5px;
+
+    transition: all .1s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,.6); 
+}
+
 * {
     color: var(--primary-color-800);
     font-family: 'Roboto', sans-serif;

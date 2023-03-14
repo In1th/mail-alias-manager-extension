@@ -1,5 +1,5 @@
 <script>
-    import SvgMail from "../icons/SvgMail.svelte";
+    import SvgMail from "../../components/icons/SvgMail.svelte";
     import LogInContent from "./LogInContent.svelte";
 </script>
 

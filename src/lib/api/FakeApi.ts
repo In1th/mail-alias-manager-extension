@@ -26,6 +26,26 @@ export class FakeApi implements Api {
                 name: 'Github',
                 alias: Email.generateAlias(email)
             },
+            {
+                name: 'Facebook',
+                alias: Email.generateAlias(email)
+            },
+            {
+                name: 'Google',
+                alias: Email.generateAlias(email)
+            },
+            {
+                name: 'Destiny',
+                alias: Email.generateAlias(email)
+            },
+            {
+                name: 'WP',
+                alias: Email.generateAlias(email)
+            },
+            {
+                name: 'Github',
+                alias: Email.generateAlias(email)
+            },
         ];
 
         return res;
