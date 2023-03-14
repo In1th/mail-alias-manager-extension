@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans:wght@300&family=Roboto:wght@300&display=swap');
+
+:root {
+    --background-color: #f1f1f1;
+    --secondary-color: white;
+
+    --primary-color-100: #E0ABFA;
+    --primary-color-200: #D488F9;
+    --primary-color-300: #C96DF4;
+    --primary-color-400: #B450E2;
+    --primary-color-500: #B33BEC;
+    --primary-color-600: #8911C1;
+    --primary-color-700: #690D94;
+    --primary-color-800: #430361;
+    --primary-color-900: #1C0029;
+
+    --success-color-100: #BEF8A2;
+    --success-color-200: #ABF182;
+    --success-color-300: #99F16F;
+    --success-color-400: #87ED57;
+    --success-color-500: #7AF440;
+    --success-color-600: #53C71C;
+    --success-color-700: #338A0A;
+    --success-color-800: #226402;
+    --success-color-900: #0E2C00;
+
+    --danger-color-100: #FCD893;
+    --danger-color-200: #FACE79;
+    --danger-color-300: #F4C363;
+    --danger-color-400: #F5C361;
+    --danger-color-500: #F4B740;
+    --danger-color-600: #C28918;
+    --danger-color-700: #AA7A1B;
+    --danger-color-800: #7B5305;
+    --danger-color-900: #5F3F03;
+
+    --error-color-100: #FFADAD;
+    --error-color-200: #FB9999;
+    --error-color-300: #FB7575;
+    --error-color-400: #F96464;
+    --error-color-500: #FD3636;
+    --error-color-600: #DD1717;
+    --error-color-700: #B51414;
+    --error-color-800: #940A0A;
+    --error-color-900: #6F0000;
+
+    --info-color-100: #A6CCF9;
+    --info-color-200: #8FC0F9;
+    --info-color-300: #6DAEFA;
+    --info-color-400: #66A9F9;
+    --info-color-500: #4093F4;
+    --info-color-600: #1C6FD0;
+    --info-color-700: #1359AB;
+    --info-color-800: #06438A;
+    --info-color-900: #002857;
+}
+
+* {
+    color: var(--primary-color-800);
+    font-family: 'Roboto', sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body, h1, h2, h3, h4, p{
+    margin: 0;
+}
+a{
+    text-decoration: none;
+    cursor: pointer;
+}
+button {
+    background-color: var(--primary-color-500);
+    color: white;
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    cursor: pointer;
+
+    transition: all .05s ease-in-out;
+}
+button:hover {
+    background-color: var(--primary-color-600);
+}
+button:focus{
+    outline: 2px solid var(--primary-color-100);
+}
+
+input {
+    border-radius: .3rem;
+    outline: none;
+    border: 1px solid var(--primary-color-800);
+
+    transition: all .05s ease-in-out;
+}
+input:focus {
+    outline: 2px solid var(--primary-color-100);
+}
+
+input.invalid {
+    border: 2px solid var(--error-color-600);
+}
+
+input.invalid:focus {
+    outline: 2px solid var(--error-color-100);
+}
+
+input.success {
+    border: 2px solid var(--success-color-700);
+}
+
+input.success:focus {
+    outline: 2px solid var(--success-color-100);
+}
