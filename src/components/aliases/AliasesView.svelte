@@ -16,6 +16,10 @@
         {:then aliases} 
             {#each searchedAliases(aliases) as alias}
                 <Alias {...alias}/>
+            {:else}
+                <div class='no-results'>
+                    <h1>No results</h1>
+                </div>
             {/each}
         {/await}
     </div>
@@ -36,5 +40,10 @@
         display: flex;
         flex-direction: column;
         gap: .3rem;
+    }
+    .no-results {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>

@@ -132,3 +132,14 @@ input.success {
 input.success:focus {
     outline: 2px solid var(--success-color-100);
 }
+
+input[type="checkbox"] {
+    height: fit-content;
+    width: fit-content;
+    border-radius: 1rem;
+    accent-color: var(--primary-color-600);
+}
+
+input[type="checkbox"]:focus-visible {
+    outline-offset: 0;
+}

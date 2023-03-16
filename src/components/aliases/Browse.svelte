@@ -6,7 +6,7 @@ import AliasesView from "./AliasesView.svelte";
 </script>
 
 <SubContent title="Browse">
-    <Search searchText={$aliasStore.search}/>
+    <Search/>
     <div>
         <AliasesView/>
     </div>

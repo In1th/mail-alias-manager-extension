@@ -5,11 +5,15 @@
     import Route from "./components/common/Route.svelte";
     import Browse from "./components/aliases/Browse.svelte";
     import Help from "./components/help/Help.svelte";
+    import Settings from "./components/settings/Settings.svelte";
+    import NewAliasView from "./components/new/NewAliasView.svelte";
 
     const routes = [
       {tab: 'login' as Tab, component: LogIn},
       {tab: 'main' as Tab, component: MainView},
       {tab: 'browse' as Tab, component: Browse},
+      {tab: 'add' as Tab, component: NewAliasView},
+      {tab: 'settings' as Tab, component: Settings},
     ]
 </script>
 

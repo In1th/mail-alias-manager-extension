@@ -10,17 +10,13 @@
     import { tabStore } from "../../lib/stores/TabStore";
     import { FakeApi } from "../../lib/api/FakeApi";
     import Search from "../common/Search.svelte";
-    import Fuse from 'fuse.js';
-    import type AliasesView from "../aliases/AliasesView.svelte";
+    import AliasesView from "../aliases/AliasesView.svelte";
+    import { settingsStore } from "../../lib/stores/SettingsStore";
 
     onMount(async () => {
         const api = new FakeApi();
-        const options: Fuse.IFuseOptions<AliasesView> = {
-            keys: ['name', 'alias']
-        }
 
         $aliasStore.aliases = $aliasStore.getAliases(api);
-        $aliasStore.searchEngine = new Fuse(await $aliasStore.aliases);
     })
 
     const showHelp = () => {
@@ -33,31 +29,39 @@
         <h1>Mail Aliaser</h1>
     </nav>
     <Search/>
-    <div id="sections">
-        <MainSection
-            icon={SvgAdd}
-            tab={'add'}
-            mainText="Create new Alias"
-            secondaryText="Click here to create an email alias"
-        />
-        <MainSection
-            icon={SvgBrowse}
-            tab={'browse'}
-            mainText="Browse all Aliases"
-            secondaryText="See, manage and delete your aliases"
-        />
-        <MainSection
-            icon={SvgSettings}
-            tab={'settings'}
-            mainText="Settings"
-            secondaryText="Change your extension settings"
-        />
-    </div>
-    <footer>
-        <button on:click={showHelp}>
-            <SvgHelp/>
-        </button>
-    </footer>
+    {#if $aliasStore.search === ''}
+         <div id="sections">
+             <MainSection
+                 icon={SvgAdd}
+                 tab={'add'}
+                 mainText="Create new Alias"
+                 secondaryText="Click here to create an email alias"
+             />
+             <MainSection
+                 icon={SvgBrowse}
+                 tab={'browse'}
+                 mainText="Browse all Aliases"
+                 secondaryText="See, manage and delete your aliases"
+             />
+             <MainSection
+                 icon={SvgSettings}
+                 tab={'settings'}
+                 mainText="Settings"
+                 secondaryText="Change your extension settings"
+             />
+         </div>
+         {#if $settingsStore.showTutorial}
+             <footer>
+                 <button on:click={showHelp}>
+                     <SvgHelp/>
+                 </button>
+             </footer>
+         {/if}
+    {:else}
+        <div class="alias-view-wrapper">
+            <AliasesView/>
+        </div>
+    {/if}
 </section>
 
 <style>
@@ -77,7 +81,8 @@
         background-color: var(--primary-color-600);
     }
     section {
-        height: 100%;
+        height: 400px;
+        width: 400px;
         gap: .5rem;
     }
     #sections {
@@ -101,5 +106,8 @@
     }
     h1 {
         color: white;
+    }
+    .alias-view-wrapper {
+        margin-inline: 1rem;
     }
 </style>
