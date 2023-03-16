@@ -1,11 +1,11 @@
-import type { Alias } from "../model/Alias";
+import type { AliasViewModel } from "../model/AliasViewModel";
 import { Email } from "../utils/emailCoder";
 import type { Api } from "./Api";
 
 export class FakeApi implements Api {
-    async getAliases(): Promise<Alias[]> {
+    async getAliases(): Promise<AliasViewModel[]> {
         const email = 'krukm634'
-        const res: Alias[] = [
+        const res: AliasViewModel[] = [
             {
                 name: 'Facebook',
                 alias: Email.generateAlias(email)

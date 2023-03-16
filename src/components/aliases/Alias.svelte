@@ -35,4 +35,7 @@ import SvgEdit from "../icons/SvgEdit.svelte";
     .last {
         margin-left: auto;
     }
+    p {
+        font-size: .8rem;
+    }
 </style>

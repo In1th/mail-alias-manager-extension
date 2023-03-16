@@ -1,5 +1,5 @@
-import type { Alias } from "../model/Alias";
+import type { AliasViewModel } from "../model/AliasViewModel";
 
 export interface Api {
-    getAliases(): Promise<Alias[]>;
+    getAliases(): Promise<AliasViewModel[]>;
 }

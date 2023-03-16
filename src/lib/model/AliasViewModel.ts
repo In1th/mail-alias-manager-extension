@@ -1,4 +1,4 @@
-export class Alias {
+export class AliasViewModel {
     name: string;
     alias: string;
 }

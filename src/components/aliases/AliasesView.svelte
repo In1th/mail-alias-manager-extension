@@ -1,7 +1,12 @@
 <script lang="ts">
+    import type { AliasViewModel } from "../../lib/model/AliasViewModel";
     import { aliasStore } from "../../lib/stores/AliasStores";
     import Alias from "./Alias.svelte";
 
+    $: search = $aliasStore.search.toLowerCase();
+
+    $: searchedAliases = (aliases: AliasViewModel[]) => 
+        aliases.filter(a => a.alias.toLowerCase().includes(search) || a.name.toLowerCase().includes(search)) 
 </script>
 
 <section>
@@ -9,7 +14,7 @@
         {#await $aliasStore.aliases}
             <p>Waiting ...</p>
         {:then aliases} 
-            {#each aliases as alias}
+            {#each searchedAliases(aliases) as alias}
                 <Alias {...alias}/>
             {/each}
         {/await}

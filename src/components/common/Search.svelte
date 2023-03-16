@@ -1,21 +1,20 @@
 <script lang="ts">
+    import { aliasStore } from "../../lib/stores/AliasStores";
     import SvgClose from "../icons/SvgClose.svelte";
 
-    export let searchText: string;
+    $: showClear = $aliasStore.search !== '';
 
-    $: showClear = searchText !== '';
-
-    const clear = () => searchText = '';
+    const clear = () => $aliasStore.search = '';
 
     const forbiddenChars = ' '
     const input = () => {
-        searchText = searchText.replaceAll(forbiddenChars, '');
+        $aliasStore.search = $aliasStore.search.replaceAll(forbiddenChars, '');
     }
 </script>
 
 <div>
     <input
-        bind:value={searchText}
+        bind:value={$aliasStore.search}
         type="text"
         placeholder="search"
         on:input={input}

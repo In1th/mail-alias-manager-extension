@@ -1,9 +1,11 @@
 import { writable } from "svelte/store";
 import type { Api } from "../api/Api";
-import type { Alias } from "../model/Alias";
+import type { AliasViewModel } from "../model/AliasViewModel";
+import type Fuse from 'fuse.js';
 
 export class AliasStore {
-    aliases: Promise<Alias[]>;
+    aliases: Promise<AliasViewModel[]>;
+    searchEngine: Fuse<AliasViewModel>;
     search: string = '';
 
     async getAliases(api: Api) {

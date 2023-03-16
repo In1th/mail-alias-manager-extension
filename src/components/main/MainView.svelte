@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
     import SvgAdd from "../../components/icons/SvgAdd.svelte";
     import SvgBrowse from "../../components/icons/SvgBrowse.svelte";
@@ -10,10 +10,17 @@
     import { tabStore } from "../../lib/stores/TabStore";
     import { FakeApi } from "../../lib/api/FakeApi";
     import Search from "../common/Search.svelte";
+    import Fuse from 'fuse.js';
+    import type AliasesView from "../aliases/AliasesView.svelte";
 
-    onMount(() => {
+    onMount(async () => {
         const api = new FakeApi();
+        const options: Fuse.IFuseOptions<AliasesView> = {
+            keys: ['name', 'alias']
+        }
+
         $aliasStore.aliases = $aliasStore.getAliases(api);
+        $aliasStore.searchEngine = new Fuse(await $aliasStore.aliases);
     })
 
     const showHelp = () => {
@@ -25,7 +32,7 @@
         <SvgMail color="white"/>
         <h1>Mail Aliaser</h1>
     </nav>
-    <Search searchText={$aliasStore.search}/>
+    <Search/>
     <div id="sections">
         <MainSection
             icon={SvgAdd}
