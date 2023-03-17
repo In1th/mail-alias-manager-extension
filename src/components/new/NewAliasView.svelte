@@ -1,16 +1,18 @@
 <script lang="ts">
     import { aliasStore } from "../../lib/stores/AliasStores";
-    import type { AliasViewModel } from "../../lib/model/AliasViewModel";
     import SubContent from "../common/SubContent.svelte";
     import SvgClipboard from "../icons/SvgClipboard.svelte";
     import SvgInfo from "../icons/SvgInfo.svelte";
     import SvgReset from "../icons/SvgReset.svelte";
     import { Email } from "../../lib/utils/emailCoder";
+    import type { AliasViewModel } from "../../lib/model/AliasViewModel";
+    import { tabStore } from "../../lib/stores/TabStore";
+    import Notification from "../common/Notification.svelte";
 
     let name = '';
     let email = Email.generateAlias('krukm634');
     let copied = false;
-    $: nameTaken = (aliases: AliasViewModel[]) => aliases.find(a => a.name === name) !== undefined;
+    $: nameTaken = $aliasStore.aliases.find(a => a.name === name) !== undefined;
 
     const regenerateAlias = () => {
         email = Email.generateAlias('krukm634');
@@ -30,10 +32,25 @@
     const clear = () => {
         name = ''
     }
+
+    const onSubmit = () => {
+        const alias = {
+            name,
+            alias: email
+        } as AliasViewModel;
+        $aliasStore.aliases.push(alias);
+        $aliasStore.aliases = $aliasStore.aliases.sort((a,b) => a.name.localeCompare(b.name));
+        $tabStore.tab = 'main';
+        $tabStore.showNotif = true;
+        $tabStore.notification = {
+            description: 'Alias successfuly added',
+            type: 'success'
+        };
+    }
 </script>
 
 <SubContent title="New Alias">
-    <form>
+    <form on:submit|preventDefault={onSubmit}>
         <div class="new-alias-option">
             <label for="alias-name">Name</label>
             <input id="alias-name" bind:value={name}/>
@@ -46,23 +63,15 @@
                 <button type="button" on:click={copy} title="Copy to clipboard"><SvgClipboard/></button>
             </div>
         </div>
-        {#await $aliasStore.aliases then aliases}
-            {#if nameTaken(aliases)}
-                 <div class="alias-warning">
-                     <SvgInfo/>
-                     <p>This alias name is already used</p>
-                 </div>
-            {:else if copied}
-                <div class="alias-copied">
-                    <SvgInfo color='var(--success-color-800)'/>
-                    <p>Alias copied to clipboard</p>
-                </div>
-            {/if}
-            <div class="last" class:lastalign={!nameTaken(aliases) && !copied}>
-                <button type="button" on:click={clear} title="Clear inputs">Clear</button>
-                <button type="submit" title="Add new alias">Add</button>
-            </div>
-        {/await}
+        {#if nameTaken}
+            <Notification description='This alias name is already used' type='danger'/>
+        {:else if copied}
+            <Notification description='Alias copied to clipboard' type='success'/>
+        {/if}
+        <div class="last" class:lastalign={!nameTaken && !copied}>
+            <button type="button" on:click={clear} title="Clear inputs">Clear</button>
+            <button type="submit" title="Add new alias" disabled={name === ''}>Add</button>
+        </div>
     </form>
 </SubContent>
 
@@ -111,22 +120,6 @@
     }
     .alias-value-field button:hover {
         background-color: rgb(176, 176, 176);
-    }
-    .alias-warning, .alias-copied {
-        display: flex;
-        background-color: var(--danger-color-100);
-        margin-top: auto;
-        gap: .5rem;
-        font-size: .8rem;
-        align-items: center;
-        border-radius: .5rem;
-        padding: .5rem;
-    }
-    .alias-warning {
-        background-color: var(--danger-color-100);
-    }
-    .alias-copied {
-        background-color: var(--success-color-100);
     }
     .lastalign {
         margin-top: auto;

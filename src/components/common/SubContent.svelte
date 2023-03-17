@@ -1,11 +1,13 @@
 <script>
     import SvgLeftArrow from "../icons/SvgLeftArrow.svelte";
     import { tabStore } from "../../lib/stores/TabStore";
+    import { aliasStore } from "../../lib/stores/AliasStores";
 
     export let title;
 
     const onClick = () => {
         $tabStore.tab = 'main';
+        $aliasStore.search = '';
     }
 </script>
 

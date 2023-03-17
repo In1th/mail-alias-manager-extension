@@ -3,7 +3,7 @@ import type { Api } from "../api/Api";
 import type { AliasViewModel } from "../model/AliasViewModel";
 
 export class AliasStore {
-    aliases: Promise<AliasViewModel[]> = Promise.resolve([]);
+    aliases: AliasViewModel[] = []
     search: string = '';
 
     async getAliases(api: Api) {

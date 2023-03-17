@@ -7,6 +7,10 @@
     import Help from "./components/help/Help.svelte";
     import Settings from "./components/settings/Settings.svelte";
     import NewAliasView from "./components/new/NewAliasView.svelte";
+    import { onMount } from "svelte";
+    import { FakeApi } from "./lib/api/FakeApi";
+    import { aliasStore } from "./lib/stores/AliasStores";
+    import Notification from "./components/common/Notification.svelte";
 
     const routes = [
       {tab: 'login' as Tab, component: LogIn},
@@ -14,7 +18,13 @@
       {tab: 'browse' as Tab, component: Browse},
       {tab: 'add' as Tab, component: NewAliasView},
       {tab: 'settings' as Tab, component: Settings},
-    ]
+    ];
+
+    onMount(async () => {
+        const api = new FakeApi();
+        $aliasStore.aliases = await $aliasStore.getAliases(api);
+        $aliasStore.aliases = $aliasStore.aliases.sort((a,b) => a.name.localeCompare(b.name));
+    })
 </script>
 
 <main>
@@ -28,6 +38,11 @@
   {#if $tabStore.showHelp}
     <Help/>
   {/if}
+  {#if $tabStore.showNotif}
+        <div class="notification-wrapper">
+            <Notification {...$tabStore.notification} />
+        </div>
+  {/if}
 </main>
 
 <style>
@@ -40,5 +55,11 @@
   }
   #routes {
     position: absolute;
+  }
+  .notification-wrapper{
+        position: absolute;
+        width: calc(400px - 2rem);
+        margin-inline: 1rem;
+        bottom: 1rem;
   }
 </style>

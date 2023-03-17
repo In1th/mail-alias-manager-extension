@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import SvgAdd from "../../components/icons/SvgAdd.svelte";
     import SvgBrowse from "../../components/icons/SvgBrowse.svelte";
     import SvgHelp from "../../components/icons/SvgHelp.svelte";
@@ -8,19 +7,18 @@
     import MainSection from "./MainSection.svelte";
     import { aliasStore } from "../../lib/stores/AliasStores";
     import { tabStore } from "../../lib/stores/TabStore";
-    import { FakeApi } from "../../lib/api/FakeApi";
     import Search from "../common/Search.svelte";
     import AliasesView from "../aliases/AliasesView.svelte";
     import { settingsStore } from "../../lib/stores/SettingsStore";
 
-    onMount(async () => {
-        const api = new FakeApi();
-
-        $aliasStore.aliases = $aliasStore.getAliases(api);
-    })
-
     const showHelp = () => {
         $tabStore.showHelp = true;
+    }
+
+    $: {
+        if ($tabStore.showNotif){
+            setTimeout(() => $tabStore.showNotif = false, 5000);
+        }
     }
 </script>
 <section>
