@@ -1,19 +1,60 @@
 <script lang="ts">
+    import type { AliasViewModel } from "../../lib/model/AliasViewModel";
+    import { aliasStore } from "../../lib/stores/AliasStores";
+    import { tabStore } from "../../lib/stores/TabStore";
     import SvgDelete from "../icons/SvgDelete.svelte";
 import SvgEdit from "../icons/SvgEdit.svelte";
 
-    export let name: string;
-    export let alias: string;
+    export let alias: AliasViewModel;
+
+    export let editOn = false;
+
+    const onEdit = () => {
+        editOn = !editOn;
+    }
+
+    function clickOutside(node, { enabled: initialEnabled, cb }) {
+    const handleOutsideClick = ({ target }) => {
+      if (!node.contains(target)) {
+        cb();
+      }
+    };
+
+    function update({enabled}) {
+      if (enabled) {
+        window.addEventListener('click', handleOutsideClick);
+      } else {
+        window.removeEventListener('click', handleOutsideClick);
+      }
+    }
+
+    update({ enabled: initialEnabled });
+    return {
+      update,
+      destroy() {
+        window.removeEventListener( 'click', handleOutsideClick );
+      }
+    };
+  }
+
+  const onDelete = () => {
+    $aliasStore.currentAlias = alias;
+    $tabStore.showDelete = true;
+  }
 </script>
 
-<section>
-    <div>
-        <h4>{name}</h4>
-        <p>{alias}</p>
+<section use:clickOutside={{ enabled: editOn, cb: () => editOn = false }}>
+    <div class="main-info-wrapper">
+        {#if editOn}
+             <input class="edit-name" type="text" bind:value={alias.name} />
+        {:else}
+             <h4>{alias.name}</h4>
+             <p>{alias.alias}</p>
+        {/if}
     </div>
     <div class="last">
-        <button><SvgEdit/></button>
-        <button><SvgDelete/></button>
+        <button on:click={onEdit}><SvgEdit/></button>
+        <button on:click={onDelete}><SvgDelete/></button>
     </div>
 </section>
 
@@ -37,5 +78,13 @@ import SvgEdit from "../icons/SvgEdit.svelte";
     }
     p {
         font-size: .8rem;
+    }
+    .edit-name {
+        height: 1.8rem;
+        width: calc(100% - 10px);
+        font-size: 1rem;
+    }
+    .main-info-wrapper {
+        flex-grow: 1;
     }
 </style>

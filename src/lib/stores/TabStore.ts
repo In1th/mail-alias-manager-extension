@@ -9,6 +9,8 @@ export class TabStore {
 
     showNotif = false;
     notification: NotificationViewModel = new NotificationViewModel();
+
+    showDelete = false;
 }
 
 export class NotificationViewModel {

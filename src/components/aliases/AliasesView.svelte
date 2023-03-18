@@ -10,7 +10,7 @@
 <section>
     <div>
         {#each searchedAliases as alias}
-            <Alias {...alias}/>
+            <Alias alias={alias}/>
         {:else}
             <div class='no-results'>
                 <h1>No results</h1>
