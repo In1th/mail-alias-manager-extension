@@ -9,6 +9,17 @@
     const onDelete = () => {
         $aliasStore.aliases = $aliasStore.aliases.filter(a => a.alias !== $aliasStore.currentAlias.alias);
         $tabStore.showDelete = false;
+        $tabStore.showNotif = true;
+        $tabStore.notification = {
+            description: 'Alias successfuly deleted',
+            type: 'success'
+        };
+    }
+
+    $: {
+        if ($tabStore.showNotif){
+            setTimeout(() => $tabStore.showNotif = false, 5000);
+        }
     }
 </script>
 
