@@ -44,6 +44,7 @@
         padding: .2rem;
         padding-left: .2rem;
         gap: .2rem;
+        align-items: center;
     }
     #help-nav button {
         margin-left: auto;

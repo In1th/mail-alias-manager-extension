@@ -1,0 +1,11 @@
+{
+    "name": "Mail Aliaser",
+    "description": "Extension for creating and managing your G-mail email aliases.",
+    "version": "0.1",
+    "manifest_version": 3,
+    "author": "krukm634@gmail.com",
+    "action": {
+      "default_popup": "index.html"
+    },
+    "permissions": ["storage"]
+}

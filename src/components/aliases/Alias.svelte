@@ -20,10 +20,11 @@ import SvgEdit from "../icons/SvgEdit.svelte";
       }
     };
 
-    function update({enabled}) {
+    async function update({enabled}) {
       if (enabled) {
         window.addEventListener('click', handleOutsideClick);
       } else {
+        await updateAliases();
         window.removeEventListener('click', handleOutsideClick);
       }
     }
@@ -37,7 +38,11 @@ import SvgEdit from "../icons/SvgEdit.svelte";
     };
   }
 
-  const onDelete = () => {
+  const updateAliases = async () => {
+    await $aliasStore.setAliases();
+  }
+
+  const onDelete = async () => {
     $aliasStore.currentAlias = alias;
     $tabStore.showDelete = true;
   }
@@ -49,7 +54,7 @@ import SvgEdit from "../icons/SvgEdit.svelte";
              <input class="edit-name" type="text" bind:value={alias.name} />
         {:else}
              <h4>{alias.name}</h4>
-             <p>{alias.alias}</p>
+             <p>{`${$aliasStore.emailPrefix}+${alias.alias}@gmail.com`}</p>
         {/if}
     </div>
     <div class="last">

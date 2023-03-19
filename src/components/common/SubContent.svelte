@@ -27,6 +27,7 @@
         padding: .1rem 1rem;
         gap: .5rem;
         background-color: var(--primary-color-600);
+        align-items: center;
     }
     section {
         display: flex;

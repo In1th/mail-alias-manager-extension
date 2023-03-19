@@ -17,8 +17,8 @@
 
 <style>
     section{
-        height: 100%;
-        width: 100%;
+        height: 400px;
+        width: 400px;
 
         position: relative;
         z-index: 0;

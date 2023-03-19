@@ -2,20 +2,22 @@
     import { aliasStore } from "../../lib/stores/AliasStores";
     import SubContent from "../common/SubContent.svelte";
     import SvgClipboard from "../icons/SvgClipboard.svelte";
-    import SvgInfo from "../icons/SvgInfo.svelte";
     import SvgReset from "../icons/SvgReset.svelte";
     import { Email } from "../../lib/utils/emailCoder";
     import type { AliasViewModel } from "../../lib/model/AliasViewModel";
     import { tabStore } from "../../lib/stores/TabStore";
     import Notification from "../common/Notification.svelte";
+    import { StorageApi } from "../../lib/api/StorageApi";
 
     let name = '';
-    let email = Email.generateAlias('krukm634');
+    let alias = Email.generateAlias();
     let copied = false;
+
+    $: email = `${$aliasStore.emailPrefix}+${alias}@gmail.com`;
     $: nameTaken = $aliasStore.aliases.find(a => a.name === name) !== undefined;
 
     const regenerateAlias = () => {
-        email = Email.generateAlias('krukm634');
+        alias = Email.generateAlias();
     }
 
     $: {
@@ -33,13 +35,15 @@
         name = ''
     }
 
-    const onSubmit = () => {
-        const alias = {
+    const onSubmit = async () => {
+        const aliasModel = {
             name,
-            alias: email
+            alias
         } as AliasViewModel;
-        $aliasStore.aliases.push(alias);
+        $aliasStore.aliases.push(aliasModel);
         $aliasStore.aliases = $aliasStore.aliases.sort((a,b) => a.name.localeCompare(b.name));
+        const api = new StorageApi();
+        await api.setAliases($aliasStore.aliases)
         $tabStore.tab = 'main';
         $tabStore.showNotif = true;
         $tabStore.notification = {

@@ -48,7 +48,7 @@
                  secondaryText="Change your extension settings"
              />
          </div>
-         {#if $settingsStore.showTutorial}
+         {#if $settingsStore.settings.showTutorial}
              <footer>
                  <button on:click={showHelp}>
                      <SvgHelp/>
@@ -77,6 +77,7 @@
         padding: .1rem 1rem;
         gap: .5rem;
         background-color: var(--primary-color-600);
+        align-items: center;
     }
     section {
         height: 400px;

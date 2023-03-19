@@ -1,4 +1,5 @@
 <script>
+    import { aliasStore } from "../../lib/stores/AliasStores";
     import SvgRightArrow from "../../components/icons/SvgRightArrow.svelte";
     import { tabStore } from "../../lib/stores/TabStore";
 
@@ -21,10 +22,12 @@
 
     $: success = triggeredValidation && !invalid;
 
-    const onSumbit = () => {
+    const onSumbit = async () => {
         triggeredValidation = true;
 
         if (!invalid){
+            $aliasStore.emailPrefix = email.replace('@gmail.com', '');
+            await $aliasStore.setPrefix();
             $tabStore.tab = 'main';
         }
     }

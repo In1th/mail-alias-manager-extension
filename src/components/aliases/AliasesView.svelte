@@ -3,8 +3,12 @@
     import Alias from "./Alias.svelte";
 
     $: search = $aliasStore.search.toLowerCase();
+    $: noResultsMsg = search !== ''? 'No results' : 'No aliases';
 
-    $: searchedAliases = $aliasStore.aliases.filter(a => a.alias.toLowerCase().includes(search) || a.name.toLowerCase().includes(search)) 
+    $: searchedAliases = $aliasStore.aliases
+        .filter(a => 
+            a.alias.toLowerCase().includes(search)
+            || a.name.toLowerCase().includes(search)) 
 </script>
 
 <section>
@@ -13,7 +17,7 @@
             <Alias alias={alias}/>
         {:else}
             <div class='no-results'>
-                <h1>No results</h1>
+                <h1>{noResultsMsg}</h1>
             </div>
         {/each}
     </div>

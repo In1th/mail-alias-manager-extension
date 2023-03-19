@@ -1,8 +1,37 @@
 <script>
-    import { settingsStore } from "../../lib/stores/SettingsStore";
+    import { tabStore } from "../../lib/stores/TabStore";
+    import { AliasStore, aliasStore } from "../../lib/stores/AliasStores";
+    import { SettingsStore, settingsStore } from "../../lib/stores/SettingsStore";
+    import Modal from "../common/Modal.svelte";
     import SubContent from "../common/SubContent.svelte";
     import SvgBug from "../icons/SvgBug.svelte";
     import SvgReset from "../icons/SvgReset.svelte";
+
+    let showReset = false;
+
+    const resetInit = () => {
+        showReset = true;
+    }
+    const closeReset = () => {
+        showReset = false;
+    }
+    const reset = async () => {
+        $aliasStore = new AliasStore();
+        $settingsStore = new SettingsStore();
+        await $aliasStore.reset();
+        await $settingsStore.reset();
+
+        $tabStore.tab = 'login';
+        $tabStore.showNotif = true;
+        $tabStore.notification = {
+            type: 'success',
+            description: 'Configuration was resetted!'
+        };
+    }
+
+    const save = async () => {
+        $settingsStore.setSettings();
+    }
 </script>
 
 <SubContent title="Settings">
@@ -10,15 +39,15 @@
         <div class='main-content'>
             <div class="setting">
                 <h3>Show tutorial</h3>
-                <input type="checkbox" bind:value={$settingsStore.showTutorial}/>
+                <input type="checkbox" bind:checked={$settingsStore.settings.showTutorial} on:change={save}/>
             </div>
             <div class="setting">
                 <h3>Dark Mode (in developement)</h3>
-                <input type="checkbox" bind:value={$settingsStore.darkMode}/>
+                <input type="checkbox" bind:checked={$settingsStore.settings.darkMode} on:change={save}/>
             </div>
             <div class="last-options">
-                <button>
-                    <SvgReset/>
+                <button on:click={resetInit}>
+                    <SvgReset color='white'/>
                     <p>Reset</p>
                 </button>
                 <a href="https://github.com/In1th/mail-alias-manager-extension/issues/new">
@@ -30,6 +59,19 @@
             </div>
         </div>
     </section>
+    {#if showReset}
+         <Modal icon={SvgReset} title='Reset' closeWindow={closeReset}>
+            <section id="reset-everything">
+                <article>
+                    <p>Are you sure you want to reset your configuration? All your aliases will be lost!</p>
+                </article>
+                <div>
+                    <button on:click={closeReset}>Cancel</button>
+                    <button on:click={reset}>Delete</button>
+                </div>
+            </section>
+         </Modal>
+    {/if}
 </SubContent>
 
 <style>
@@ -70,5 +112,30 @@
     }
     input {
         margin-left: auto
+    }
+
+
+    #reset-everything {
+        flex-grow: 1;
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem 1rem;
+    }
+    #reset-everything > div {
+        margin-top: auto;
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+    }
+    button:first-child {
+        margin-left: auto;
+    }
+    article {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>

@@ -1,7 +1,7 @@
 <script>
     export let width = 24;
     export let height = 24;
-    export let color = "white";
+    export let color = "var(--primary-color-800)";
 </script>
 
 <svg width={`${width}`} height={`${height}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
