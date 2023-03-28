@@ -33,11 +33,6 @@
         $settingsStore.setSettings();
     }
 
-    const onReport = () => {
-        if (chrome.tabs) {
-            chrome.tabs.create({url: 'https://github.com/In1th/mail-alias-manager-extension/issues/new'})
-        }
-    }
 </script>
 
 <SubContent title="Settings">
@@ -55,10 +50,6 @@
                 <button on:click={resetInit}>
                     <SvgReset color='white'/>
                     <p>Reset</p>
-                </button>
-                <button on:click={onReport}>
-                    <SvgBug/>
-                    <p>Report a bug</p>
                 </button>
             </div>
         </div>
