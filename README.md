@@ -1,5 +1,5 @@
 # Mail Aliaser
-[![chrome web store](https://img.shields.io/chrome-web-store/v/gapomilenmoofgbffmddmgcepmdffcim)](https://chrome.google.com/webstore/detail/mail-aliaser/gapomilenmoofgbffmddmgcepmdffcim/)![[license](https://img.shields.io/github/license/In1th/mail-alias-manager-extension)](https://github.com/In1th/mail-alias-manager-extension/blob/main/LICENSE.md)
+[![chrome web store](https://img.shields.io/chrome-web-store/v/gapomilenmoofgbffmddmgcepmdffcim)](https://chrome.google.com/webstore/detail/mail-aliaser/gapomilenmoofgbffmddmgcepmdffcim/)![[license](https://img.shields.io/github/license/in1th/mail-alias-manager-extension)](https://github.com/In1th/mail-alias-manager-extension/blob/main/LICENSE.md)[![last update](https://img.shields.io/github/last-commit/in1th/mail-alias-manager-extension)](https://github.com/In1th/mail-alias-manager-extension/commits/main)
 
 A simple Chrome Extension to create, manage and check G-mail aliases.
 
